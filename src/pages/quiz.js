@@ -42,27 +42,30 @@ export default class SecondPage extends Component {
     fetch('http://localhost:5000/questions') // change in production
       .then(response => response.json())
       .then(questions => {
+
         const question = questions.questions;
         let question_id = this.props.location.state.questions.questions;
 
-        console.log(question_id[0].valueOf());
+        console.log(question_id);
         console.log(question);
 
-        var hello = [];
+        var newQuestionsArray = [];
 
-        question.forEach((i) => {
-          if (i.id === ) {
-            hello.push(i);
-          }
+        question.forEach((obj) => {
+          question_id.forEach((value) => {
+            if (value === obj.id) {
+              newQuestionsArray.push(obj);
+            }
+          });
         });
 
-        console.log(hello);
+        console.log(newQuestionsArray);
 
         this.setState({
-          allQuestions: hello,
-          questionId: hello[0].id,
-          currentQuestion: hello[0].question,
-          answerOptions: hello[0].answers,
+          allQuestions: newQuestionsArray,
+          questionId: newQuestionsArray[0].id,
+          currentQuestion: newQuestionsArray[0].question,
+          answerOptions: newQuestionsArray[0].answers,
         });
       });
   }
@@ -73,8 +76,6 @@ export default class SecondPage extends Component {
         <SEO title="Quiz" />
         <QuizComponent nextQuestion={this._setNextQuestion.bind(this)} lastQuestion={this._setPreviousQuestion.bind(this)} question={this.state.currentQuestion} answers={this.state.answerOptions} />
         <Link to="/"> Go back to the homepage </Link>
-        {/* console.log(this.props.location.state.questions.questions) */}
-        {/* console.log(this.state.allQuestions) */}
       </Layout>
     )
   }
