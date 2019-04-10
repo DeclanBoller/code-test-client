@@ -9,33 +9,13 @@ export default class SecondPage extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      counter: 0,
+      score: 0,
       allQuestions: [],
-      answerOptions: [],
       currentQuestion: '',
-      questionId: null,
-      answer: '',
-      selectedAnswers: {},
-      result: ''
+      answerOptions: [],
+      correctAnswer: null,
     };
-  }
-
-  _handleAnswerSelected(e) {
-    // 
-  }
-
-  _setNextQuestion(e) {
-    e.preventDefault();
-    console.log('Set Next Question')
-  }
-
-  _setPreviousQuestion(e) {
-    e.preventDefault();
-    console.log('Set Previous Question');
-  }
-
-  _viewResults(e) {
-    e.preventDefault();
-    console.log('Display Test Results')
   }
 
   componentDidMount() {
@@ -61,22 +41,38 @@ export default class SecondPage extends Component {
 
         console.log(newQuestionsArray);
 
+        let answer = newQuestionsArray[0].correct_answer;
+
         this.setState({
           allQuestions: newQuestionsArray,
-          questionId: newQuestionsArray[0].id,
           currentQuestion: newQuestionsArray[0].question,
           answerOptions: newQuestionsArray[0].answers,
+          correctAnswer: newQuestionsArray[0].answers[answer],
         });
       });
   }
 
+  _setNextQuestion = (e) => {
+    e.preventDefault();
+    console.log('Set Next Question')
+  }
+
+  _setPreviousQuestion = (e) => {
+    e.preventDefault();
+    console.log('Set Previous Question');
+  }
+
   render() {
+
+    const { _setNextQuestion, _setPreviousQuestion } = this;
+    const { currentQuestion, answerOptions, correctAnswer } = this.state;
+
     return (
       <Layout>
         <SEO title="Quiz" />
-        <QuizComponent nextQuestion={this._setNextQuestion.bind(this)} lastQuestion={this._setPreviousQuestion.bind(this)} question={this.state.currentQuestion} answers={this.state.answerOptions} />
+        <QuizComponent nextQuestion={_setNextQuestion} lastQuestion={_setPreviousQuestion} question={currentQuestion} answers={answerOptions} answer={correctAnswer} />
         <Link to="/"> Go back to the homepage </Link>
       </Layout>
     )
-  }
+  };
 }

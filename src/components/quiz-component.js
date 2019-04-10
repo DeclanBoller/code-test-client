@@ -1,9 +1,10 @@
 import React from 'react';
+import Question from '../components/question';
 
 export default function quizComponent(props) {
   return (
     <div>
-      <h1>{props.question}</h1>
+      <h3> <Question content={props.question} /> </h3>
       {
         props.answers.map((v, i) => {
           return (
