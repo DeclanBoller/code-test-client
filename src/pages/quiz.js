@@ -12,12 +12,12 @@ export default class SecondPage extends Component {
       counter: 0,
       score: 0,
       questionAnswered: false,
-      showButton: false,
       allQuestions: [],
       currentQuestion: '',
       answerOptions: [],
       correctAnswer: '',
       total: null,
+      classNames: ['', '', '', ''],
     };
   }
 
@@ -60,7 +60,7 @@ export default class SecondPage extends Component {
     let { counter, allQuestions, total } = this.state;
 
     if (counter === total) {
-      console.log('total reached')
+      console.log('total reached');
     } else {
       this.setState({
         counter: counter + 1,
@@ -71,45 +71,39 @@ export default class SecondPage extends Component {
     }
   }
 
-  _showButtonHandler() {
-    this.setState({
-      showButton: true,
-      questionAnswered: true,
-    });
-  }
-
-  _increaseScoreHandler() {
-    this.setState({
-      score: this.state.score + 1,
-    });
-  }
-
   _checkAnswerHandler(e) {
+    let { classNames, correctAnswer } = this.state;
     let elem = e.currentTarget;
     let usrAnswer = elem.dataset.value;
-    if (usrAnswer === this.state.correctAnswer) {
+    let ansId = Number(elem.dataset.id);
+    let updatedClassNames = classNames;
+
+    console.log(updatedClassNames[ansId]);
+
+    if (usrAnswer === correctAnswer) {
+      updatedClassNames[ansId] = 'right';
       this.setState({
         score: this.state.score + 1,
-      });
+      })
+      // console.log(elem);
     } else {
-      console.log('WRONG!');
+      updatedClassNames[ansId] = 'wrong';
     }
+    this.setState({
+      classNames: updatedClassNames,
+    });
   }
 
   render() {
 
     const { _setNextQuestion, _checkAnswerHandler } = this;
-    const { currentQuestion, answerOptions, correctAnswer, total, counter } = this.state;
+    const { currentQuestion, answerOptions, correctAnswer, total, counter, score, classNames } = this.state;
 
     return (
       <Layout>
         <SEO title="Quiz" />
 
-        <QuizComponent nextQuestion={_setNextQuestion.bind(this)} checkAnswer={_checkAnswerHandler.bind(this)} question={currentQuestion} total={total} counter={counter} answers={answerOptions} correctAnswer={correctAnswer} />
-
-        {
-          console.log(this.state.score)
-        }
+        <QuizComponent nextQuestion={_setNextQuestion.bind(this)} checkAnswer={_checkAnswerHandler.bind(this)} question={currentQuestion} total={total} counter={counter} answers={answerOptions} correctAnswer={correctAnswer} score={score} classNames={classNames} />
 
         <Link to="/"> Go back to the homepage </Link>
       </Layout>
