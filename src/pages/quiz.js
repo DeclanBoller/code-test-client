@@ -84,16 +84,32 @@ export default class SecondPage extends Component {
     });
   }
 
+  _checkAnswerHandler(e) {
+    let elem = e.currentTarget;
+    let usrAnswer = elem.dataset.value;
+    if (usrAnswer === this.state.correctAnswer) {
+      this.setState({
+        score: this.state.score + 1,
+      });
+    } else {
+      console.log('WRONG!');
+    }
+  }
+
   render() {
 
-    const { _setNextQuestion } = this;
+    const { _setNextQuestion, _checkAnswerHandler } = this;
     const { currentQuestion, answerOptions, correctAnswer, total, counter } = this.state;
 
     return (
       <Layout>
         <SEO title="Quiz" />
 
-        <QuizComponent nextQuestion={_setNextQuestion.bind(this)} question={currentQuestion} total={total} counter={counter} answers={answerOptions} answer={correctAnswer} />
+        <QuizComponent nextQuestion={_setNextQuestion.bind(this)} checkAnswer={_checkAnswerHandler.bind(this)} question={currentQuestion} total={total} counter={counter} answers={answerOptions} correctAnswer={correctAnswer} />
+
+        {
+          console.log(this.state.score)
+        }
 
         <Link to="/"> Go back to the homepage </Link>
       </Layout>
