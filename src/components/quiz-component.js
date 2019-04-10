@@ -1,15 +1,15 @@
 import React from 'react';
 import Answers from '../components/answers';
 
-export default function quizComponent(props) {
+export default function quizComponent({ counter, total, question, answers, checkAnswer, classNames, nextQuestion }) {
   return (
     <div>
-      <h3> Question {props.counter} / {props.total} </h3>
-      <h3>{props.question}</h3>
+      <h3> Question {counter} / {total} </h3>
+      <h3>{question}</h3>
 
-      <Answers answers={props.answers} checkAnswer={props.checkAnswer} classNames={props.classNames} />
+      <Answers answers={answers} checkAnswer={checkAnswer} classNames={classNames} />
 
-      <button onClick={props.nextQuestion}>{props.counter === props.total ? 'Finish quiz' : 'Next question'}</button>
+      <button onClick={nextQuestion}>{counter === total ? 'Finish quiz' : 'Next question'}</button>
     </div>
   )
 }

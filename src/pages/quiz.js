@@ -17,7 +17,7 @@ export default class SecondPage extends Component {
       answerOptions: [],
       correctAnswer: '',
       total: null,
-      classNames: ['', '', '', ''],
+      classNames: [],
     };
   }
 
@@ -48,15 +48,10 @@ export default class SecondPage extends Component {
           correctAnswer: newQuestionsArray[counter].answers[newQuestionsArray[counter].correct_answer],
           total: newQuestionsArray.length,
         });
-
-        // console.log("Quiz Question IDs:", question_id);
-        // console.log("All Questions:", question);
-        // console.log("New Questions:", newQuestionsArray);
-        // console.log(this.state);
       });
   }
 
-  _setNextQuestion() {
+  _setNextQuestion = () => {
     let { counter, allQuestions, total } = this.state;
 
     if (counter === total) {
@@ -71,28 +66,28 @@ export default class SecondPage extends Component {
     }
   }
 
-  _checkAnswerHandler(e) {
-    let { classNames, correctAnswer } = this.state;
+  _checkAnswerHandler = (e) => {
+    const { classNames, correctAnswer } = this.state;
+
     let elem = e.currentTarget;
     let usrAnswer = elem.dataset.value;
     let ansId = Number(elem.dataset.id);
-    let updatedClassNames = classNames;
 
-    console.log(updatedClassNames[ansId]);
+    let updatedClassNames = classNames;
 
     if (usrAnswer === correctAnswer) {
       updatedClassNames[ansId] = 'right';
       this.setState({
         score: this.state.score + 1,
-      })
-      // console.log(elem);
+      });
     } else {
       updatedClassNames[ansId] = 'wrong';
     }
+
     this.setState({
       classNames: updatedClassNames,
-    });
-  }
+    })
+  };
 
   render() {
 
@@ -103,7 +98,17 @@ export default class SecondPage extends Component {
       <Layout>
         <SEO title="Quiz" />
 
-        <QuizComponent nextQuestion={_setNextQuestion.bind(this)} checkAnswer={_checkAnswerHandler.bind(this)} question={currentQuestion} total={total} counter={counter} answers={answerOptions} correctAnswer={correctAnswer} score={score} classNames={classNames} />
+        <QuizComponent
+          nextQuestion={_setNextQuestion}
+          checkAnswer={_checkAnswerHandler}
+          question={currentQuestion}
+          total={total}
+          counter={counter}
+          answers={answerOptions}
+          correctAnswer={correctAnswer}
+          score={score}
+          classNames={classNames}
+        />
 
         <Link to="/"> Go back to the homepage </Link>
       </Layout>
