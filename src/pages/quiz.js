@@ -14,7 +14,8 @@ export default class SecondPage extends Component {
       allQuestions: [],
       currentQuestion: '',
       answerOptions: [],
-      correctAnswer: null,
+      correctAnswer: '',
+      total: null,
     };
   }
 
@@ -25,10 +26,6 @@ export default class SecondPage extends Component {
 
         const question = questions.questions;
         let question_id = this.props.location.state.questions.questions;
-
-        console.log(question_id);
-        console.log(question);
-
         var newQuestionsArray = [];
 
         question.forEach((obj) => {
@@ -39,38 +36,43 @@ export default class SecondPage extends Component {
           });
         });
 
-        console.log(newQuestionsArray);
-
-        let answer = newQuestionsArray[0].correct_answer;
-
         this.setState({
+          counter: this.state.counter + 1,
           allQuestions: newQuestionsArray,
-          currentQuestion: newQuestionsArray[0].question,
-          answerOptions: newQuestionsArray[0].answers,
-          correctAnswer: newQuestionsArray[0].answers[answer],
+          currentQuestion: newQuestionsArray[this.state.counter].question,
+          answerOptions: newQuestionsArray[this.state.counter].answers,
+          correctAnswer: newQuestionsArray[this.state.counter].answers[newQuestionsArray[this.state.counter].correct_answer],
+          total: newQuestionsArray.length,
         });
+
+        console.log("Quiz Question IDs:", question_id);
+        console.log("All Questions:", question);
+        console.log("New Questions:", newQuestionsArray);
+        console.log(this.state);
       });
   }
 
-  _setNextQuestion = (e) => {
-    e.preventDefault();
-    console.log('Set Next Question')
-  }
+  _setNextQuestion() {
 
-  _setPreviousQuestion = (e) => {
-    e.preventDefault();
-    console.log('Set Previous Question');
+    this.setState({
+      counter: this.state.counter + 1,
+      currentQuestion: this.state.allQuestions[this.state.counter].question,
+      answerOptions: this.state.allQuestions[this.state.counter].answers,
+      correctAnswer: this.state.allQuestions[this.state.counter].answers[this.state.allQuestions[this.state.counter].correct_answer],
+    });
+
+    console.log(this.state)
   }
 
   render() {
 
-    const { _setNextQuestion, _setPreviousQuestion } = this;
-    const { currentQuestion, answerOptions, correctAnswer } = this.state;
+    const { _setNextQuestion } = this;
+    const { currentQuestion, answerOptions, correctAnswer, total, counter } = this.state;
 
     return (
       <Layout>
         <SEO title="Quiz" />
-        <QuizComponent nextQuestion={_setNextQuestion} lastQuestion={_setPreviousQuestion} question={currentQuestion} answers={answerOptions} answer={correctAnswer} />
+        <QuizComponent nextQuestion={_setNextQuestion.bind(this)} lastQuestion={_setPreviousQuestion.bind(this)} question={currentQuestion} answers={answerOptions} answer={correctAnswer} total={total} counter={counter} />
         <Link to="/"> Go back to the homepage </Link>
       </Layout>
     )
