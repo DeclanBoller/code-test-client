@@ -11,6 +11,8 @@ export default class SecondPage extends Component {
     this.state = {
       counter: 0,
       score: 0,
+      questionAnswered: false,
+      showButton: false,
       allQuestions: [],
       currentQuestion: '',
       answerOptions: [],
@@ -36,32 +38,50 @@ export default class SecondPage extends Component {
           });
         });
 
+        let { counter } = this.state;
+
         this.setState({
-          counter: this.state.counter + 1,
+          counter: counter + 1,
           allQuestions: newQuestionsArray,
-          currentQuestion: newQuestionsArray[this.state.counter].question,
-          answerOptions: newQuestionsArray[this.state.counter].answers,
-          correctAnswer: newQuestionsArray[this.state.counter].answers[newQuestionsArray[this.state.counter].correct_answer],
+          currentQuestion: newQuestionsArray[counter].question,
+          answerOptions: newQuestionsArray[counter].answers,
+          correctAnswer: newQuestionsArray[counter].answers[newQuestionsArray[counter].correct_answer],
           total: newQuestionsArray.length,
         });
 
-        console.log("Quiz Question IDs:", question_id);
-        console.log("All Questions:", question);
-        console.log("New Questions:", newQuestionsArray);
-        console.log(this.state);
+        // console.log("Quiz Question IDs:", question_id);
+        // console.log("All Questions:", question);
+        // console.log("New Questions:", newQuestionsArray);
+        // console.log(this.state);
       });
   }
 
   _setNextQuestion() {
+    let { counter, allQuestions, total } = this.state;
 
+    if (counter === total) {
+      console.log('total reached')
+    } else {
+      this.setState({
+        counter: counter + 1,
+        currentQuestion: allQuestions[counter].question,
+        answerOptions: allQuestions[counter].answers,
+        correctAnswer: allQuestions[counter].answers[allQuestions[counter].correct_answer],
+      });
+    }
+  }
+
+  _showButtonHandler() {
     this.setState({
-      counter: this.state.counter + 1,
-      currentQuestion: this.state.allQuestions[this.state.counter].question,
-      answerOptions: this.state.allQuestions[this.state.counter].answers,
-      correctAnswer: this.state.allQuestions[this.state.counter].answers[this.state.allQuestions[this.state.counter].correct_answer],
+      showButton: true,
+      questionAnswered: true,
     });
+  }
 
-    console.log(this.state)
+  _increaseScoreHandler() {
+    this.setState({
+      score: this.state.score + 1,
+    });
   }
 
   render() {
@@ -72,7 +92,9 @@ export default class SecondPage extends Component {
     return (
       <Layout>
         <SEO title="Quiz" />
-        <QuizComponent nextQuestion={_setNextQuestion.bind(this)} lastQuestion={_setPreviousQuestion.bind(this)} question={currentQuestion} answers={answerOptions} answer={correctAnswer} total={total} counter={counter} />
+
+        <QuizComponent nextQuestion={_setNextQuestion.bind(this)} question={currentQuestion} total={total} counter={counter} answers={answerOptions} answer={correctAnswer} />
+
         <Link to="/"> Go back to the homepage </Link>
       </Layout>
     )

@@ -1,24 +1,15 @@
 import React from 'react';
-import Question from '../components/question';
+import Answers from '../components/answers';
 
 export default function quizComponent(props) {
   return (
     <div>
-      <h3> <Question content={props.question} /> </h3>
-      {
-        props.answers.map((v, i) => {
-          return (
-            <div className="answers" key={i}>
-              <label>
-                <input type="radio" name={v} value={v} />
-                {v}
-              </label>
-            </div>
-          )
-        })
-      }
-      <button onClick={props.lastQuestion}>Previous Question</button>
-      <button onClick={props.nextQuestion}>Next Question</button>
+      <h3> Question {props.counter} / {props.total} </h3>
+      <h3>{props.question}</h3>
+
+      <Answers answers={props.answers} />
+
+      <button onClick={props.nextQuestion}>{props.counter === props.total ? 'Finish quiz' : 'Next question'}</button>
     </div>
   )
 }
