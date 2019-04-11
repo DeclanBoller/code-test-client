@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { Link } from "gatsby";
 import QuizComponent from '../components/quiz-component';
 
 import Layout from "../components/layout";
@@ -68,6 +67,7 @@ export default class SecondPage extends Component {
         currentQuestion: allQuestions[counter].question,
         answerOptions: allQuestions[counter].answers,
         correctAnswer: allQuestions[counter].answers[allQuestions[counter].correct_answer],
+        classNames: [],
       });
     }
   }
@@ -117,8 +117,6 @@ export default class SecondPage extends Component {
           showScore={revealScore}
           quizTitle={title}
         />
-
-        <Link to="/"> Return To All Quizzes</Link>
       </Layout>
     )
   };

@@ -1,0 +1,163 @@
+html, body {
+  background: rgb(221, 221, 221);
+  height: 100vh;
+  text-align: center;
+}
+
+main {
+  max-width: 960px;
+  margin: auto;
+}
+
+.header-cont {
+  background-color: rebeccapurple;
+  color: white;
+  padding: 10px;
+  text-align: center;
+  text-transform: uppercase;
+  border-radius: 5px;
+}
+
+.header-cont h1{
+    background-color: #fff;
+    border-radius: 5px;
+    display: inline-block;
+    color: #0b0e21;
+    padding: 10px 25px;
+    font-size: 24px;
+    font-weight: 600;
+}
+
+.header-cont h3 {
+  text-transform: capitalize;
+  font-weight: 300;
+}
+
+.quiz-cont {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-content: center;
+  text-align: center;
+  height: inherit;
+}
+
+#answers {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-content: center;
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+#answers ul{
+    list-style-type: none;
+    padding: 0;
+    margin-top: 50px;
+}
+
+#answers li {
+    background-color: #fff;
+    border: 2px solid rebeccapurple;
+    font-size: 24px;
+    font-weight: 300;
+    min-height: 70px;
+    min-width: 300px;
+    display: flex;
+    justify-content: center;
+    margin-bottom: 30px;
+    cursor: pointer;
+    transition: all ease .5s;
+    border-radius: 50px;
+}
+
+#answers li span {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#answers li:hover {
+    transform: scale(1.03);
+}
+
+#answers li.right {
+    border-color: #1ea55b;
+    color: #1ea55b;
+}
+
+#answers li.wrong {
+    border-color: #dc0a0a;
+    color: #dc0a0a;
+}
+
+button.next {
+  border: 2px solid #0b0e21;
+  background-color: #0b0e21;
+  color: #fff;
+  font-size: 18px;
+  font-weight: 600;
+  padding: 10px 50px;
+  margin: 25px auto 10px auto;
+  text-transform: uppercase;
+  transition: all ease .5s;
+  cursor: pointer;
+  border-radius: 50px;
+}
+
+button.next:hover {
+    background-color: #fff;
+    color: #0b0e21;
+}
+
+.return { 
+  background-color: #0b0e21;
+  color: #fff;
+  font-size: 14px;
+  padding: 2px 10px;
+  margin: 0 auto;
+  text-transform: capitalize;
+  transition: all ease .5s;
+  cursor: pointer;
+  border-radius: 50px;
+}
+
+.tile {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 150px;
+  height: 150px;
+  border-radius: 5px;
+  margin: 25px 10px;
+  text-align: center;
+  border: 2px solid #0b0e21;
+  background: rgba(11, 14, 33, 0.9);
+  color: #eee;
+  transition: all ease .5s;
+}
+
+.tile:hover {
+  background: #eee;
+  color: rebeccapurple;
+  transform: scale(1.1)
+}
+
+a {
+  text-decoration: none;
+}
+
+.tile h3 {
+  font-weight: 300;
+  margin: 0;
+}
+
+.tile-list {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  width: auto;
+}

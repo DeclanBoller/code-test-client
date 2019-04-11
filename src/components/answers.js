@@ -12,7 +12,7 @@ export default function answers({ answers, checkAnswer, classNames }) {
                 className={classNames[i]}
                 data-value={v}
                 data-id={i}>
-                <span>{i + 1}: {v} </span>
+                <span> {v} </span>
               </li>
             </ul>
           )

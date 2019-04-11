@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import QuizList from '../components/quiz-tile-list';
+import '../styles/style.css';
 
 import Layout from "../components/layout";
 import SEO from "../components/seo";

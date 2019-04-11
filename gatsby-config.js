@@ -1,6 +1,6 @@
 module.exports = {
   siteMetadata: {
-    title: `Blake eLearning`,
+    title: `School of X`,
     description: `An interveiw test, built with Gatsby & React`,
     author: `@DeclanBoller`,
   },

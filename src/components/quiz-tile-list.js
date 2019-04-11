@@ -3,13 +3,7 @@ import QuizTile from './quiz-tile';
 
 export default function quizTileList({ quizzes }) {
   return (
-    <div style={{
-      display: 'flex',
-      flexDirection: 'row',
-      flexWrap: 'wrap',
-      justifyContent: 'center',
-      width: 'auto',
-    }}>
+    <div className='tile-list'>
       {
         quizzes.map((quiz, i) => {
           return (
