@@ -19,3 +19,14 @@ Run Gatsby Development Server
 ```
 $ gatsby develop
 ```
+
+## Screens:
+
+### All Quizzes - 
+  ![All Quizzes](./images/all_quizzes.png)
+
+### Quiz - 
+  ![Quiz](./images/quiz.png)
+
+### Submission - 
+  ![Submission](./images/submission.png)
