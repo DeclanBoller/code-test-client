@@ -18,7 +18,7 @@ export default function quizTileList({ quizzes }) {
               id={quizzes[i].id}
               quizTitle={quizzes[i].title}
               page='page-2'
-              state={{ questions: quizzes[i].question_ids }}
+              state={{ questions: quizzes[i].question_ids, title: quizzes[i].title }}
               linkTitle={`Take ${quizzes[i].title}`}
             />
           )

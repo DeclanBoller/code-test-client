@@ -18,6 +18,8 @@ export default class SecondPage extends Component {
       correctAnswer: '',
       total: null,
       classNames: [],
+      revealScore: null,
+      title: '',
     };
   }
 
@@ -47,6 +49,7 @@ export default class SecondPage extends Component {
           answerOptions: newQuestionsArray[counter].answers,
           correctAnswer: newQuestionsArray[counter].answers[newQuestionsArray[counter].correct_answer],
           total: newQuestionsArray.length,
+          title: this.props.location.state.questions.title
         });
       });
   }
@@ -55,7 +58,10 @@ export default class SecondPage extends Component {
     let { counter, allQuestions, total } = this.state;
 
     if (counter === total) {
-      console.log('total reached');
+      this.setState({
+        revealScore: counter + 1,
+        score: this.state.score,
+      })
     } else {
       this.setState({
         counter: counter + 1,
@@ -67,7 +73,7 @@ export default class SecondPage extends Component {
   }
 
   _checkAnswerHandler = (e) => {
-    const { classNames, correctAnswer } = this.state;
+    const { classNames, correctAnswer, score, total } = this.state;
 
     let elem = e.currentTarget;
     let usrAnswer = elem.dataset.value;
@@ -75,7 +81,7 @@ export default class SecondPage extends Component {
 
     let updatedClassNames = classNames;
 
-    if (usrAnswer === correctAnswer) {
+    if (usrAnswer === correctAnswer && score < total) {
       updatedClassNames[ansId] = 'right';
       this.setState({
         score: this.state.score + 1,
@@ -92,7 +98,7 @@ export default class SecondPage extends Component {
   render() {
 
     const { _setNextQuestion, _checkAnswerHandler } = this;
-    const { currentQuestion, answerOptions, correctAnswer, total, counter, score, classNames } = this.state;
+    const { currentQuestion, answerOptions, correctAnswer, total, counter, score, classNames, revealScore, title } = this.state;
 
     return (
       <Layout>
@@ -108,9 +114,11 @@ export default class SecondPage extends Component {
           correctAnswer={correctAnswer}
           score={score}
           classNames={classNames}
+          showScore={revealScore}
+          quizTitle={title}
         />
 
-        <Link to="/"> Go back to the homepage </Link>
+        <Link to="/"> Return To All Quizzes</Link>
       </Layout>
     )
   };
